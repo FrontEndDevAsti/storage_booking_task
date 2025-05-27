@@ -2,21 +2,54 @@
 
 A full-stack storage booking application with a Next.js frontend and Node.js/Express/PostgreSQL backend.
 
+
+
 ## Project Structure
 
-\`\`\`
-storage-booking-app/
-├── frontend/          # Next.js frontend application
-│   ├── app/          # Next.js App Router pages
-│   ├── package.json  # Frontend dependencies
-│   └── ...
-├── backend/          # Node.js Express API server
-│   ├── server.js     # Main server file
-│   ├── init-db.js    # Database initialization
-│   ├── package.json  # Backend dependencies
-│   └── .env          # Environment variables
-└── README.md         # This file
-\`\`\`
+```
+storage-booking-project/
+├── backend/                    # Node.js + Express + PostgreSQL
+│   ├── src/
+│   │   ├── config/
+│   │   │   └── database.ts
+│   │   ├── models/
+│   │   │   ├── index.ts
+│   │   │   ├── StorageUnit.ts
+│   │   │   └── Booking.ts
+│   │   ├── routes/
+│   │   │   ├── index.ts
+│   │   │   ├── units.ts
+│   │   │   └── bookings.ts
+│   │   ├── middleware/
+│   │   │   └── errorHandler.ts
+│   │   ├── utils/
+│   │   │   └── validation.ts
+│   │   └── server.ts
+│   ├── .env
+│   ├── package.json
+│   └── tsconfig.json
+└── frontend/                   # Next.js + Tailwind CSS
+    ├── app/
+    │   ├── api/
+    │   │   ├── units/
+    │   │   │   └── route.ts
+    │   │   ├── book/
+    │   │   │   └── route.ts
+    │   │   └── bookings/
+    │   │       └── route.ts
+    │   ├── book/
+    │   │   └── page.tsx
+    │   ├── bookings/
+    │   │   └── page.tsx
+    │   ├── globals.css
+    │   ├── layout.tsx
+    │   └── page.tsx
+    ├── .env.local
+    ├── package.json
+    ├── tailwind.config.ts
+    └── next.config.js
+```
+
 
 ## Prerequisites
 
@@ -43,63 +76,57 @@ First, set up PostgreSQL:
    GRANT ALL PRIVILEGES ON DATABASE storage_booking TO storage_user;
    \`\`\`
 
+
 ### 2. Backend Setup
 
 1. **Navigate to backend directory:**
-   \`\`\`bash
-   cd backend
-   \`\`\`
+```
+   cd storage-booking-backend
+  ```
 
 2. **Install dependencies:**
-   \`\`\`bash
+```
    npm install
-   \`\`\`
+```
 
 3. **Configure environment variables:**
    Copy \`.env\` file and update with your database credentials:
-   \`\`\`
+```
    DB_USER=postgres
    DB_HOST=localhost
    DB_NAME=storage_booking
    DB_PASSWORD=your_password
    DB_PORT=5432
    PORT=5000
-   \`\`\`
+```
 
-4. **Initialize database:**
-   \`\`\`bash
-   npm run init-db
-   \`\`\`
-
-5. **Start the backend server:**
-   \`\`\`bash
+4. **Start the backend server:**
+```
    npm run dev
-   \`\`\`
-
+   ```
    The backend will run on \`http://localhost:5000\`
 
 ### 3. Frontend Setup
 
 1. **Open a new terminal** and navigate to frontend directory:
-   \`\`\`bash
-   cd frontend
-   \`\`\`
+```
+   cd storage-booking-frontend
+```
 
 2. **Install dependencies:**
-   \`\`\`bash
-   npm install
-   \`\`\`
+```
+   npm install --legacy-peer-deps
+```
 
 3. **Configure environment variables:**
    The \`.env.local\` file should contain:
-   \`\`\`
+```
    NEXT_PUBLIC_API_URL=http://localhost:5000/api
-   \`\`\`
-
+```
 4. **Start the frontend development server:**
-   \`\`\`bash
+ ```
    npm run dev
-   \`\`\`
+ ```
 
    The frontend will run on \`http://localhost:3000\`
 
@@ -107,70 +134,89 @@ First, set up PostgreSQL:
 
 1. **Browse Units:** Visit \`http://localhost:3000\` to see available storage units
 2. **Book a Unit:** Click "Book Now" on any available unit
-3. **View Bookings:** Go to "My Bookings" and search by email
+3. **My Bookings:** Go to "My Bookings" and search by name
 
 ## API Endpoints
 
 The backend provides these API endpoints:
 
-- \`GET /api/units\` - Get all storage units
-- \`GET /api/units/:id\` - Get specific unit details
-- \`POST /api/bookings\` - Create a new booking
-- \`GET /api/bookings?email=user@email.com\` - Get bookings by email
-- \`GET /api/health\` - Health check endpoint
+1. **Health Check:**
 
-## Database Schema
+   URL: `GET http://localhost:5000/api/health`
+   Expected: Status 200, server info
 
-### Units Table
-\`\`\`sql
-CREATE TABLE units (
-  id SERIAL PRIMARY KEY,
-  name VARCHAR(255) NOT NULL,
-  size VARCHAR(50) NOT NULL,
-  price DECIMAL(10,2) NOT NULL,
-  available BOOLEAN DEFAULT true,
-  description TEXT,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-\`\`\`
 
-### Bookings Table
-\`\`\`sql
-CREATE TABLE bookings (
-  id SERIAL PRIMARY KEY,
-  unit_id INTEGER REFERENCES units(id),
-  unit_name VARCHAR(255) NOT NULL,
-  customer_name VARCHAR(255) NOT NULL,
-  email VARCHAR(255) NOT NULL,
-  phone VARCHAR(20) NOT NULL,
-  start_date DATE NOT NULL,
-  duration INTEGER NOT NULL,
-  total_price DECIMAL(10,2) NOT NULL,
-  status VARCHAR(50) DEFAULT 'active',
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-\`\`\`
 
-## Development Scripts
+2. **Get All Units:**
 
-### Backend
-- \`npm start\` - Start production server
-- \`npm run dev\` - Start development server with nodemon
-- \`npm run init-db\` - Initialize database with tables and sample data
+   URL: `GET http://localhost:5000/api/units`
+   Expected: Array of 10 storage units
 
-### Frontend
-- \`npm run dev\` - Start development server
-- \`npm run build\` - Build for production
-- \`npm start\` - Start production server
+
+
+3. **Filter Units:**
+
+   URL: `GET http://localhost:5000/api/units?location=Downtown`
+   Expected: Only Downtown units
+
+
+
+4. **Get Specific Unit:**
+
+   URL: `GET http://localhost:5000/api/units/1`
+   Expected: Unit details with ID 1
+
+
+
+5. **Create Booking:**
+
+   URL: `POST http://localhost:5000/api/bookings`
+   Headers: `Content-Type: application/json`
+   Body:
+
+
+```json
+{
+  "userName": "Test User",
+  "unitId": 1,
+  "startDate": "2024-03-01T00:00:00.000Z",
+  "endDate": "2024-03-15T00:00:00.000Z"
+}
+```
+
+Expected: Booking created successfully
+
+
+
+6. **Get User Bookings:**
+
+   URL: `GET http://localhost:5000/api/bookings?userName=Test User`
+   Expected: List of bookings for Test User
+
+
+
+7. **Check Availability:**
+
+   URL: `GET http://localhost:5000/api/units/1/availability?startDate=2024-03-01&endDate=2024-03-15`
+   Expected: Available = false (due to existing booking)
+
+
+
+8. **Try Conflicting Booking:**
+
+   URL: `POST http://localhost:5000/api/bookings`
+   Body: Same dates as above but different user
+   Expected: 409 Conflict error
+
+
 
 ## Technologies Used
 
 ### Frontend
-- **Next.js 14** - React framework with App Router
+- **Next.js 15** - React framework with App Router
 - **TypeScript** - Type-safe JavaScript
 - **Tailwind CSS** - Utility-first CSS framework
-- **React 18** - UI library
-
+  
 ### Backend
 - **Node.js** - JavaScript runtime
 - **Express.js** - Web framework
@@ -215,10 +261,6 @@ CREATE TABLE bookings (
 4. Test thoroughly
 5. Submit a pull request
 
-## License
-
-This project is licensed under the MIT License.
-\`\`\`
 
 ## Support
 
