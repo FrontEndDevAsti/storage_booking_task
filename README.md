@@ -111,7 +111,7 @@ NODE_ENV=development
 ```
    npm run dev
    ```
-   The backend will run on \`http://localhost:5000\`
+   The backend will run on \`http://localhost:5000`
 
 ### 3. Frontend Setup
 
@@ -135,11 +135,11 @@ NODE_ENV=development
    npm run dev
  ```
 
-   The frontend will run on \`http://localhost:3000\`
+   The frontend will run on \`http://localhost:3000`
 
 ## Usage
 
-1. **Browse Units:** Visit \`http://localhost:3000\` to see available storage units
+1. **Browse Units:** Visit \`http://localhost:3000` to see available storage units
 2. **Book a Unit:** Click "Book Now" on any available unit
 3. **My Bookings:** Go to "My Bookings" and search by name
 
