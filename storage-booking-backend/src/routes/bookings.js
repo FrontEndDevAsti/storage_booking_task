@@ -194,7 +194,7 @@ router.get('/', validateUserName, async (req, res, next) => {
     // Build where clause
     const whereClause = {
       userName: {
-        [Op.iLike]: `%${userName}%` // Case-insensitive partial match
+        [Op.iLike]: userName // Case-insensitive partial match
       }
     };
 
