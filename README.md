@@ -94,12 +94,19 @@ First, set up PostgreSQL:
 3. **Configure environment variables:**
    Copy \`.env\` file and update with your database credentials:
 ```
-   DB_USER=postgres
-   DB_HOST=localhost
-   DB_NAME=storage_booking
-   DB_PASSWORD=your_password
-   DB_PORT=5432
-   PORT=5000
+# Database Configuration
+DB_HOST=localhost
+DB_PORT=5432
+DB_NAME=storage_booking
+DB_USER=storage_user (your_username)
+DB_PASSWORD=storage123 (your_password)
+
+# Server Configuration
+PORT=5000
+NODE_ENV=development
+
+# CORS Configuration
+FRONTEND_URL=http://localhost:3000
 ```
 
 4. **Start the backend server:**
@@ -121,7 +128,7 @@ First, set up PostgreSQL:
 ```
 
 3. **Configure environment variables:**
-   The \`.env.local\` file should contain:
+   The \`.env\` file should contain:
 ```
    NEXT_PUBLIC_API_URL=http://localhost:5000/api
 ```
