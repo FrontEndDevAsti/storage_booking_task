@@ -6,7 +6,6 @@ A full-stack storage booking application with a Next.js frontend and Node.js/Exp
 
 
 
-
 ## Project Structure
 
 ```
