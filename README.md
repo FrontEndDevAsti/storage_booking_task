@@ -1,6 +1,8 @@
 # Storage Booking Application
 
 A full-stack storage booking application with a Next.js frontend and Node.js/Express/PostgreSQL backend.
+![image](https://github.com/user-attachments/assets/4e6c5b80-7a33-46df-a02f-05a3782aa127)
+
 
 
 
