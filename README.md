@@ -105,8 +105,6 @@ DB_PASSWORD=storage123 (your_password)
 PORT=5000
 NODE_ENV=development
 
-# CORS Configuration
-FRONTEND_URL=http://localhost:3000
 ```
 
 4. **Start the backend server:**
