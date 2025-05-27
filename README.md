@@ -2,6 +2,9 @@
 
 A full-stack storage booking application with a Next.js frontend and Node.js/Express/PostgreSQL backend.
 
+![image](https://github.com/user-attachments/assets/4e6c5b80-7a33-46df-a02f-05a3782aa127)
+
+
 
 
 ## Project Structure
@@ -92,19 +95,24 @@ First, set up PostgreSQL:
 3. **Configure environment variables:**
    Copy \`.env\` file and update with your database credentials:
 ```
-   DB_USER=postgres
-   DB_HOST=localhost
-   DB_NAME=storage_booking
-   DB_PASSWORD=your_password
-   DB_PORT=5432
-   PORT=5000
+# Database Configuration
+DB_HOST=localhost
+DB_PORT=5432
+DB_NAME=storage_booking
+DB_USER=storage_user (your_username)
+DB_PASSWORD=storage123 (your_password)
+
+# Server Configuration
+PORT=5000
+NODE_ENV=development
+
 ```
 
 4. **Start the backend server:**
 ```
    npm run dev
    ```
-   The backend will run on \`http://localhost:5000\`
+   The backend will run on \`http://localhost:5000`
 
 ### 3. Frontend Setup
 
@@ -119,7 +127,7 @@ First, set up PostgreSQL:
 ```
 
 3. **Configure environment variables:**
-   The \`.env.local\` file should contain:
+   The \`.env\` file should contain:
 ```
    NEXT_PUBLIC_API_URL=http://localhost:5000/api
 ```
@@ -128,11 +136,11 @@ First, set up PostgreSQL:
    npm run dev
  ```
 
-   The frontend will run on \`http://localhost:3000\`
+   The frontend will run on \`http://localhost:3000`
 
 ## Usage
 
-1. **Browse Units:** Visit \`http://localhost:3000\` to see available storage units
+1. **Browse Units:** Visit \`http://localhost:3000` to see available storage units
 2. **Book a Unit:** Click "Book Now" on any available unit
 3. **My Bookings:** Go to "My Bookings" and search by name
 
